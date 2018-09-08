@@ -1,0 +1,32 @@
+def euler251(max_sum = 10000):
+    from sympy.ntheory import divisors
+    from numpy import sqrt
+    import time
+    start = time.time()
+    out = 0
+    for k in xrange((max_sum-2)/3+1):
+        if k%2000==0: print k, str(float(k)/((max_sum-2)/3+1))+"%", time.time()-start
+        a = 3*k+2
+        b2c = (k+1)*(k+1)*(8*k+5)
+        squares = [i for i in divisors(b2c) if int(sqrt(i))**2==i]
+        for b2 in squares:
+            c = b2c/b2
+            if a+int(sqrt(b2))+c<=max_sum and 8*a**3+15*a*a+6*a-1==27*b2c:
+                out+=1
+    return out
+print euler251(110000000)
+# import time
+# import matplotlib.pyplot as plt
+# import numpy as np
+# x = [0]
+# y = [0]
+# for i in [j*1000 for j in range(1,11)]:
+#     x.append(i)
+#     start = time.time()
+#     print euler251(i)
+#     end = time.time()
+#     y.append(end-start)
+# print x,y
+# print np.polyfit(x,y,1)
+# plt.scatter(x,y)
+# plt.show()

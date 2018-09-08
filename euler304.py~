@@ -1,0 +1,65 @@
+def euler304():
+    def miller_rabin(p):
+        if p == 2:
+            return True
+        if p % 2 == 0:
+            return False
+        else:
+            d = p-1
+            s = 0
+            while d % 2 == 0:
+                d /= 2
+                s += 1
+            for a in [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41]:
+                temp = []
+                for r in range(s):
+                    temp.append(pow(a, d, p) != 1 and pow(
+                        a, 2**r*d, p) != (p-1))
+            return not(all(temp))
+    primes = []
+    i = 10**14-1
+    while len(primes) < 100000:
+        if i % 1000 == 1:
+            print i
+        if miller_rabin(i):
+            primes.append(i)
+        i += 2
+    return (min(primes), max(primes))  # difference of 3235412
+
+
+class Memoize:  # https://stackoverflow.com/questions/1988804/what-is-memoization-and-how-can-i-use-it-in-python
+    def __init__(self, f):
+        self.f = f
+        self.memo = {}
+
+    def __call__(self, *args):
+        if not args in self.memo:
+            self.memo[args] = self.f(*args)
+        return self.memo[args]
+#print euler304()
+
+
+def f(m):
+    if 0 <= m <= 8:
+        return [0, 1, 1, 2, 3, 5, 8, 13, 21][m]
+    elif -8 <= m < 0:
+        return [None, 1, -1, 2, -3, 5, -8, 13, -21][-m]
+    else:
+        n = m//8
+        c = m % 8
+        x = f(n)
+        y = f(n+1)
+        out = f(c)*y**8
+        out += 8*f(c-1)*x*y**7
+        out += 28*f(c-2)*x**2*y**6
+        out += 56*f(c-3)*x**3*y**5
+        out += 70*f(c-4)*x**4*y**4
+        out += 56*f(c-5)*x**5*y**3
+        out += 28*f(c-6)*x**6*y**2
+        out += 8*f(c-7)*x**7*y
+        out += f(c-8)*x**8
+        return out
+
+f = Memoize(f)
+print f(10**7)
+print len(f.memo)

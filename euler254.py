@@ -1,0 +1,11 @@
+def euler254():
+    from math import factorial
+    f = lambda x: sum([factorial(int(i)) for i in str(x)])
+    sf = lambda x: sum([int(i) for i in str(f(x))])
+    out = [0]*151
+    for i in xrange(10**9):
+        if 0<sf(i)<=150:
+            if out[sf(i)]==0: out[sf(i)]=i
+        if i%10000==0: print i
+    return out
+print euler254()

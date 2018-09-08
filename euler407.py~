@@ -1,0 +1,3 @@
+def euler407():
+    M = lambda n: max([a for a in range(n) if (a*a)%n==a%n])
+print euler407()

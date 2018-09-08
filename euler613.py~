@@ -1,0 +1,5 @@
+def euler613():
+    #-(75*math.log(25)-48*math.log(16)-27*math.log(9)+72*math.atan(4/3)+72*math.atan(3/4)-108*pi)/12
+    import math
+    return -(75*math.log(25)-48*math.log(16)-27*math.log(9)+72*math.atan(4./3)+72*math.atan(3./4)-108*math.pi)/(144*math.pi)
+print euler613()

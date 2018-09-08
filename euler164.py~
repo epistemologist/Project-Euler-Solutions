@@ -1,0 +1,4 @@
+def euler164(flag,n):
+    import numpy as np; return sum(np.array(np.linalg.matrix_power([[int(k%100==l//10) for l in ([i for i in range(1000) if sum([int(j) for j in str(i)])<10])] for k in ([i for i in range(1000) if sum([int(j) for j in str(i)])<10])],17)[55:220]).flatten())
+
+print euler164()
